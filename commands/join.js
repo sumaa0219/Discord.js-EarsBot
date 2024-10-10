@@ -1,10 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { joinVoiceChannel, EndBehaviorType, createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus } from '@discordjs/voice';
 import fs from 'fs';
-import stream from 'stream';
 import { recognize_from_file } from '../speech.js'; // speech.jsから関数をインポート
 import dotenv from "dotenv";
-import ffmpeg from 'fluent-ffmpeg'; // ffmpegをインポート
 import prism from 'prism-media';
 
 dotenv.config();

@@ -1,16 +1,26 @@
-FROM node:18
+FROM ubuntu:latest
 
-WORKDIR /app
+# 作業ディレクトリの作成
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
 
-RUN apt update && \
-    apt install -y ffmpeg
+# 必要なパッケージのインストール
+RUN apt-get update && \
+    apt-get install -y curl ffmpeg python3 make g++ && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY package.json .
-COPY yarn.lock .
+# Node.js 18のインストール
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
 
-RUN yarn install
+# ローカルの作業ディレクトリの内容をコピー
+COPY ./ ./
 
-COPY . .
-RUN yarn tsc
+# 依存関係のインストール
+RUN npm install && npm update
 
-CMD yarn start
+# deploy-command.jsを実行
+RUN node deploy-command.js
+
+# コンテナ起動時に実行するコマンド
+CMD ["node", "index.js"]
