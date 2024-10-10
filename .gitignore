@@ -1,0 +1,6 @@
+node_modules
+.env
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+projects.json
